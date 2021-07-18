@@ -75,7 +75,7 @@ func handleRequests() {
 	address := "localhost"
 	address += ":"
 	address += "8000"
-	fmt.Printf("Server at address %v is up\n", address)
+	fmt.Printf("Server at address %v is up\n", "http://"+address)
 
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/author", author)
