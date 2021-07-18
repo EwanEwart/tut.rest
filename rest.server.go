@@ -13,6 +13,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
 )
 
 // Article ...
@@ -77,10 +79,11 @@ func handleRequests() {
 	address += "8000"
 	fmt.Printf("Server at address %v is up\n", "http://"+address)
 
-	http.HandleFunc("/", homePage)
-	http.HandleFunc("/author", author)
-	http.HandleFunc("/articles", returnAllArticles)
-	log.Fatal(http.ListenAndServe(address, nil)) // nill: use DefaultServerMux
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/", homePage)
+	router.HandleFunc("/author", author)
+	router.HandleFunc("/articles", returnAllArticles)
+	log.Fatal(http.ListenAndServe(address, router)) // replace DefaultServerMux
 }
 
 /* homePage manages all requests for the root URL */
